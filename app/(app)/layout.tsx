@@ -12,6 +12,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
 
+    const LINKS = [
+    { href: '/dashboard', label: 'Dashboard' },
+    { href: '/exercises', label: 'Ejercicios' },
+    ];
+
     // Restaurar la sesión de localStorage una sola vez al montar el layout
     useEffect(() => {
         useSessionStore.persist.rehydrate();
