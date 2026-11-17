@@ -2,9 +2,15 @@ import { NextResponse } from 'next/server';
 import { routinesStore } from '@/features/routines/store';
 import { validateRoutine } from '@/features/routines/validation';
 
-// GET /api/routines -> la lista de rutinas en JSON
-export async function GET() {
-    return NextResponse.json(routinesStore.list());
+// GET /api/routines -> la lista de rutinas en JSON (acepta ?level=... para filtrar)
+export async function GET(request: Request) {
+    const { searchParams } = new URL(request.url);
+    const level = searchParams.get('level');
+    const routines = routinesStore.list();
+
+    return NextResponse.json(
+        level ? routines.filter((routine) => routine.level === level) : routines
+    );
 }
 
 // POST /api/routines -> crea una rutina a partir de un JSON

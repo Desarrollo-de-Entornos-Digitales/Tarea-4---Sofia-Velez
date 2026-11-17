@@ -38,3 +38,8 @@ export async function toggleDoneAction(routineId: number, exerciseId: number): P
     routinesStore.toggleDone(routineId, exerciseId);
     revalidatePath(`/routines/${routineId}`);
 }
+
+export async function deleteRoutineAction(id: number): Promise<void> {
+    routinesStore.remove(id);
+    revalidatePath('/routines');
+}

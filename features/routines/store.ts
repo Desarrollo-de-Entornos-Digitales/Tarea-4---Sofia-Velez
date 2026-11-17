@@ -52,4 +52,9 @@ export const routinesStore = {
             ? routine.doneIds.filter((done) => done !== exerciseId)
             : [...routine.doneIds, exerciseId];
     },
+
+    remove(id: number): void {
+        const index = routines.findIndex((r) => r.id === id);
+        if (index !== -1) routines.splice(index, 1);
+    },
 };

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { deleteRoutineAction } from '@/features/routines/actions';
 import { routinesStore } from '@/features/routines/store';
 import { LEVELS } from '@/features/routines/types';
 
@@ -20,10 +21,19 @@ export default function RoutinesPage() {
 
             <ul className="grid gap-4 sm:grid-cols-2">
                 {routines.map((routine) => (
-                    <li key={routine.id}>
-                        <Link href={`/routines/${routine.id}`} className="card bg-base-100 shadow-sm transition-shadow hover:shadow-md">
-                            <div className="card-body gap-2 p-4">
-                                <h2 className="card-title text-base">{routine.name}</h2>
+                    <li key={routine.id} className="card bg-base-100 shadow-sm transition-shadow hover:shadow-md">
+                        <div className="card-body gap-2 p-4">
+                            <div className="flex items-start justify-between gap-2">
+                                <Link href={`/routines/${routine.id}`} className="card-title text-base hover:underline">
+                                    {routine.name}
+                                </Link>
+                                <form action={deleteRoutineAction.bind(null, routine.id)}>
+                                    <button type="submit" className="btn btn-ghost btn-error btn-xs">
+                                        Eliminar
+                                    </button>
+                                </form>
+                            </div>
+                            <Link href={`/routines/${routine.id}`} className="flex flex-col gap-2">
                                 <p className="text-sm opacity-70">{routine.description}</p>
                                 <div className="flex items-center gap-2">
                                     <span className="badge badge-secondary badge-sm">
@@ -31,8 +41,8 @@ export default function RoutinesPage() {
                                     </span>
                                     <span className="text-xs opacity-70">{routine.exerciseIds.length} ejercicios</span>
                                 </div>
-                            </div>
-                        </Link>
+                            </Link>
+                        </div>
                     </li>
                 ))}
             </ul>

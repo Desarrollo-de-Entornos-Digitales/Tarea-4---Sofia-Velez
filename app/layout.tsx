@@ -19,7 +19,8 @@ export const metadata: Metadata = {
 
 // "async" porque leemos la cookie del tema en el servidor antes de pintar
 export default async function RootLayout({ children }: LayoutProps<"/">) {
-    const theme = (await cookies()).get("theme")?.value === "icesi-dark" ? "icesi-dark" : "icesi";
+    const cookieTheme = (await cookies()).get("theme")?.value;
+    const theme = cookieTheme === "icesi-dark" || cookieTheme === "icesi-contraste" ? cookieTheme : "icesi";
 
     return (
         <html

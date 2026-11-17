@@ -51,3 +51,28 @@
   --color-base-content: #e2e8f0;
 }
 
+@plugin "daisyui/theme" {
+  name: "icesi-contraste";
+  color-scheme: dark;
+  --color-primary: #ffff00;
+  --color-primary-content: #000000;
+  --color-secondary: #00ffff;
+  --color-secondary-content: #000000;
+  --color-accent: #4cb979;
+  --color-accent-content: #000000;
+  --color-neutral: #ffffff;
+  --color-neutral-content: #000000;
+  --color-info: #00ffff;
+  --color-info-content: #000000;
+  --color-success: #00ff66;
+  --color-success-content: #000000;
+  --color-warning: #ffff00;
+  --color-warning-content: #000000;
+  --color-error: #ff4d4d;
+  --color-error-content: #000000;
+  --color-base-100: #000000;
+  --color-base-200: #0a0a0a;
+  --color-base-300: #ffffff;
+  --color-base-content: #ffffff;
+}
+
