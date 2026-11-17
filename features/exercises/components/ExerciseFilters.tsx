@@ -4,6 +4,11 @@ import { useEffect, useState, useTransition } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { CATEGORIES } from '../types';
 
+const DURATIONS = [
+    { value: '5', label: 'Hasta 5 min' },
+    { value: '10', label: 'Hasta 10 min' },
+];
+
 export function ExerciseFilters() {
     const router = useRouter();
     const pathname = usePathname();
@@ -11,6 +16,7 @@ export function ExerciseFilters() {
     const [isPending, startTransition] = useTransition();
 
     const category = searchParams.get('category') ?? '';
+    const duration = searchParams.get('duration') ?? '';
     const urlText = searchParams.get('q') ?? '';
     const [text, setText] = useState(urlText);
 
@@ -19,7 +25,7 @@ export function ExerciseFilters() {
         const params = new URLSearchParams(searchParams.toString());
         if (value) params.set(key, value);
         else params.delete(key);
-        startTransition(() => router.replace(`${pathname}?${params.toString()}`));
+        startTransition(() => router.push(`${pathname}?${params.toString()}`));
     };
 
     // Espera 300 ms desde la última tecla antes de buscar (debounce)
@@ -60,6 +66,26 @@ export function ExerciseFilters() {
                         className={`btn btn-sm ${category === c.value ? 'btn-primary' : 'btn-outline'}`}
                     >
                         {c.label}
+                    </button>
+                ))}
+            </div>
+
+            <div className="flex flex-wrap gap-2" role="group" aria-label="Filtrar por duración">
+                <button
+                    type="button"
+                    onClick={() => updateParam('duration', '')}
+                    className={`btn btn-sm ${duration === '' ? 'btn-primary' : 'btn-outline'}`}
+                >
+                    Cualquier duración
+                </button>
+                {DURATIONS.map((d) => (
+                    <button
+                        key={d.value}
+                        type="button"
+                        onClick={() => updateParam('duration', d.value)}
+                        className={`btn btn-sm ${duration === d.value ? 'btn-primary' : 'btn-outline'}`}
+                    >
+                        {d.label}
                     </button>
                 ))}
             </div>

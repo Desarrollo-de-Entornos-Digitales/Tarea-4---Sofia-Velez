@@ -1,6 +1,12 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { CATEGORIES, type Exercise } from '../types';
+import { CATEGORIES, type Category, type Exercise } from '../types';
+
+const BADGE_BY_CATEGORY: Record<Category, string> = {
+    fuerza: 'badge-primary',
+    cardio: 'badge-error',
+    movilidad: 'badge-accent',
+};
 
 export function ExerciseCard({ exercise, priority = false }: { exercise: Exercise; priority?: boolean }) {
     const category = CATEGORIES.find((c) => c.value === exercise.category);
@@ -25,7 +31,7 @@ export function ExerciseCard({ exercise, priority = false }: { exercise: Exercis
                 <h2 className="card-title text-base">{exercise.name}</h2>
                 <p className="text-sm opacity-70">{exercise.muscle}</p>
                 <div className="mt-1 flex items-center gap-2">
-                    <span className="badge badge-secondary badge-sm">{category?.label}</span>
+                    <span className={`badge ${BADGE_BY_CATEGORY[exercise.category]} badge-sm`}>{category?.label}</span>
                     <span className="text-xs opacity-70">{exercise.durationMin} min</span>
                 </div>
             </div>
