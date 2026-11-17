@@ -8,7 +8,18 @@ import { AuthGuard } from '@/features/auth/components/AuthGuard';
 import { NotificationBell } from '@/features/notifications/components/NotificationBell';
 import { useSessionStore } from '@/shared/store/session.store';
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+import { toggleThemeAction } from '@/shared/actions/theme';
+
+// ... dentro del header, junto a la campana de notificaciones:
+
+export default function AppLayout({
+    children,
+    modal,
+}: {
+    children: React.ReactNode;
+    modal: React.ReactNode; // lo que muestre el espacio paralelo @modal
+}) {
+    
     const pathname = usePathname();
     const router = useRouter();
 
@@ -44,6 +55,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         {/* Campana de notificaciones reactiva de DaisyUI */}
                         <NotificationBell />
 
+                        <form action={toggleThemeAction}>
+                            <button type="submit" className="btn btn-ghost btn-sm">Cambiar tema</button>
+                        </form>
+
+
                         <button
                             type="button"
                             onClick={handleLogout}
@@ -53,8 +69,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
                         </button>
                     </div>
                 </header>
-
                 <main className="max-w-4xl mx-auto p-6">{children}</main>
+                    {modal}
             </div>
         </AuthGuard>
     );
